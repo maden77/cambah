@@ -421,6 +421,232 @@
                     </div>
                 </div>
             `).join('');
+// Fungsi untuk menghitung total dan menampilkan keranjang
+function updateCart() {
+    const cartEl = document.getElementById('cart-items');
+    const totalEl = document.getElementById('cart-total');
+    const emptyCartEl = document.getElementById('empty-cart');
+    
+    // Jika keranjang kosong
+    if (cart.length === 0) {
+        cartEl.innerHTML = '';
+        totalEl.textContent = '0';
+        if (emptyCartEl) emptyCartEl.style.display = 'block';
+        return;
+    }
+    
+    // Sembunyikan pesan keranjang kosong jika ada
+    if (emptyCartEl) emptyCartEl.style.display = 'none';
+    
+    // Render item keranjang
+    cartEl.innerHTML = cart.map((item, i) => {
+        const product = products.find(p => p.id === item.id);
+        if (!product) return '';
+        
+        return `
+            <div class="cart-item">
+                <img src="${product.image}" alt="${product.name}">
+                <div class="cart-item-info">
+                    <h4>${product.name}</h4>
+                    <p>${product.price.toLocaleString('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0
+                    })}</p>
+                </div>
+                <div class="cart-item-qty">
+                    <button onclick="updateQty(${i}, -1)">-</button>
+                    <span>${item.qty}</span>
+                    <button onclick="updateQty(${i}, 1)">+</button>
+                </div>
+                <div class="cart-item-total">
+                    ${(item.price * item.qty).toLocaleString('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0
+                    })}
+                </div>
+                <button class="remove-btn" onclick="removeFromCart(${i})">×</button>
+            </div>
+        `;
+    }).join('');
+    
+    // Hitung total
+    const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    
+    // Tampilkan total dengan format mata uang
+    totalEl.textContent = total.toLocaleString('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0
+    });
+}
+
+// Fungsi untuk mengubah kuantitas
+function updateQty(i, change) {
+    // Validasi indeks
+    if (i < 0 || i >= cart.length) {
+        console.error('Indeks keranjang tidak valid');
+        return;
+    }
+    
+    const cartItem = cart[i];
+    const product = products.find(p => p.id === cartItem.id);
+    
+    // Validasi produk ditemukan
+    if (!product) {
+        console.error('Produk tidak ditemukan');
+        return;
+    }
+    
+    // Hitung kuantitas baru
+    const newQty = cartItem.qty + change;
+    
+    // Validasi untuk penambahan (tidak melebihi stok)
+    if (change > 0 && newQty > product.stock) {
+        showNotif(`Stok ${product.name} hanya tersedia ${product.stock} buah`, 'error');
+        return;
+    }
+    
+    // Validasi untuk pengurangan (tidak kurang dari 0)
+    if (newQty <= 0) {
+        // Hapus item dari keranjang
+        cart.splice(i, 1);
+        showNotif('Item dihapus dari keranjang', 'info');
+    } else {
+        // Update kuantitas
+        cartItem.qty = newQty;
+    }
+    
+    // Perbarui tampilan keranjang
+    updateCart();
+    
+    // Simpan ke localStorage (jika menggunakan)
+    saveCartToStorage();
+}
+
+// Fungsi untuk menghapus item dari keranjang
+function removeFromCart(i) {
+    if (i < 0 || i >= cart.length) return;
+    
+    const item = cart[i];
+    const product = products.find(p => p.id === item.id);
+    
+    cart.splice(i, 1);
+    
+    if (product) {
+        showNotif(`${product.name} dihapus dari keranjang`, 'info');
+    }
+    
+    updateCart();
+    saveCartToStorage();
+}
+
+// Fungsi untuk menambahkan ke keranjang
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    
+    if (!product) {
+        showNotif('Produk tidak ditemukan', 'error');
+        return;
+    }
+    
+    // Cek apakah produk sudah ada di keranjang
+    const existingItemIndex = cart.findIndex(item => item.id === productId);
+    
+    if (existingItemIndex >= 0) {
+        // Jika sudah ada, tingkatkan kuantitas
+        updateQty(existingItemIndex, 1);
+    } else {
+        // Jika belum ada, tambahkan baru
+        if (product.stock <= 0) {
+            showNotif('Stok produk habis', 'error');
+            return;
+        }
+        
+        cart.push({
+            id: productId,
+            price: product.price,
+            qty: 1
+        });
+        
+        showNotif(`${product.name} ditambahkan ke keranjang`, 'success');
+        updateCart();
+        saveCartToStorage();
+    }
+}
+
+// Fungsi untuk menyimpan keranjang ke localStorage
+function saveCartToStorage() {
+    try {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    } catch (error) {
+        console.error('Gagal menyimpan keranjang:', error);
+    }
+}
+
+// Fungsi untuk memuat keranjang dari localStorage
+function loadCartFromStorage() {
+    try {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+            const parsedCart = JSON.parse(savedCart);
+            // Validasi data yang dimuat
+            if (Array.isArray(parsedCart)) {
+                cart = parsedCart.filter(item => 
+                    item && 
+                    item.id && 
+                    typeof item.qty === 'number' && 
+                    item.qty > 0
+                );
+            }
+        }
+    } catch (error) {
+        console.error('Gagal memuat keranjang:', error);
+        cart = [];
+    }
+}
+
+// Fungsi notifikasi (contoh implementasi)
+function showNotif(message, type = 'info') {
+    // Implementasi notifikasi sesuai dengan library/framework Anda
+    // Contoh sederhana:
+    const notifEl = document.createElement('div');
+    notifEl.className = `notification ${type}`;
+    notifEl.textContent = message;
+    notifEl.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background: ${type === 'error' ? '#f44336' : type === 'success' ? '#4CAF50' : '#2196F3'};
+        color: white;
+        border-radius: 4px;
+        z-index: 1000;
+    `;
+    
+    document.body.appendChild(notifEl);
+    
+    setTimeout(() => {
+        notifEl.remove();
+    }, 3000);
+}
+
+// Data contoh (sesuaikan dengan data Anda)
+let products = []; // Isi dengan data produk Anda
+let cart = []; // Keranjang belanja
+
+// Inisialisasi
+document.addEventListener('DOMContentLoaded', function() {
+    // Load produk dari API atau sumber data
+    // products = await fetchProducts();
+    
+    // Load keranjang dari localStorage
+    loadCartFromStorage();
+    
+    // Render keranjang awal
+    updateCart();
+});
 const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
             totalEl.textContent = total.toLocaleString();
         }
