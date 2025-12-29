@@ -168,22 +168,23 @@
     <script>
         // Data produk
 
-     // Untuk website e-commerce Anda
-const tiktokUrl = "https://vt.tiktok.com/ZS5Lk6AsB/";
-
-// Extract video ID
-const videoId = "ZS5Lk6AsB"; // Dari URL Anda
-
-// URL thumbnail (kadang bisa diakses)
-const thumbnailUrl = `https://p16-sign-va.tiktokcdn.com/obj/tos-maliva-p-0068/${videoId}`;
-        const products = [
+     const UnsplashImage = () => {
+  return (
+    <img 
+      src="https://images.unsplash.com/photo-8yZf5vfoeP8" 
+      alt="Deskripsi gambar"
+      className="w-full h-auto"
+    />
+  );
+};
+       // const products = [
             {id:1, name:"Kecambah Kacang Hijau", price:15000, img:"https://unsplash.com/id/foto/8yZf5vfoeP8", desc:"Kaya protein dan vitamin C"},
             {id:2, name:"Kecambah Alfalfa", price:25000, img:"https://images.unsplash.com/photo-1543352633-99d4f9b8d6e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", desc:"Tekstur renyah, banyak mineral"},
             {id:3, name:"Kecambah Kedelai", price:18000, img:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", desc:"Kaya protein dan isoflavon"},
             {id:4, name:"Kecambah Brokoli", price:30000, img:"https://images.unsplash.com/photo-1576045057995-568f588f82fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", desc:"Kandungan sulforaphane tinggi"},
             {id:5, name:"Kecambah Lentil", price:22000, img:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w-600&q=80", desc:"Kaya zat besi dan serat"},
             {id:6, name:"Kecambah Mix", price:35000, img:"https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", desc:"Campuran kecambah premium"}
-        ];
+        ]; //
 
         let cart = [];
         const cartCount = document.querySelector('.cart-count');
