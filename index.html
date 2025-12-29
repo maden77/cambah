@@ -34,6 +34,7 @@
         .btn { display: inline-block; background: var(--hijau); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s; border: none; cursor: pointer; }
         .btn:hover { background: var(--hijau-muda); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         .btn-orange { background: var(--orange); }
+        .btn-whatsapp { background: #25D366; }
 
         /* Produk */
         .section-title { text-align: center; margin: 60px 0 40px; }
@@ -41,47 +42,79 @@
         .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
         .product-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
         .product-card:hover { transform: translateY(-10px); }
-        .product-img { height: 200px; overflow: hidden; }
+        .product-img { height: 200px; overflow: hidden; background: #f0f7f0; display: flex; align-items: center; justify-content: center; }
         .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
         .product-card:hover .product-img img { transform: scale(1.05); }
         .product-info { padding: 20px; }
-        .product-name { font-size: 1.3rem; margin-bottom: 10px; }
-        .product-price { font-size: 1.4rem; font-weight: 700; color: var(--hijau); margin: 15px 0; }
+        .product-name { font-size: 1.3rem; margin-bottom: 10px; color: var(--hijau); }
+        .product-price { font-size: 1.4rem; font-weight: 700; color: var(--orange); margin: 15px 0; }
         .product-actions { display: flex; gap: 10px; }
 
         /* Manfaat */
         .benefits { padding: 60px 0; background: #f0f7f0; }
         .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px; }
-        .benefit-item { background: white; padding: 30px; border-radius: 10px; text-align: center; }
+        .benefit-item { background: white; padding: 30px; border-radius: 10px; text-align: center; transition: transform 0.3s; }
+        .benefit-item:hover { transform: translateY(-5px); }
+        .benefit-item i { font-size: 2.5rem; color: var(--hijau); margin-bottom: 15px; }
 
         /* Footer */
         footer { background: var(--hijau); color: white; padding: 60px 0 20px; }
         .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
         .social-links { display: flex; margin-top: 20px; }
-        .social-links a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; margin-right: 10px; color: white; text-decoration: none; }
-        .copyright { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .social-links a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; margin-right: 10px; color: white; text-decoration: none; transition: background 0.3s; }
+        .social-links a:hover { background: rgba(255,255,255,0.2); }
+        .copyright { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; }
 
         /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; }
         .modal-content { background: white; width: 90%; max-width: 800px; border-radius: 10px; padding: 30px; max-height: 80vh; overflow-y: auto; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .close-modal { font-size: 1.8rem; cursor: pointer; }
+        .close-modal { font-size: 1.8rem; cursor: pointer; color: #666; }
+        .close-modal:hover { color: #333; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
         .cart-total { text-align: right; margin-top: 20px; font-size: 1.3rem; font-weight: 700; }
+
+        /* Upload Section */
+        .upload-instruction { 
+            background: #fff3cd; 
+            border: 1px solid #ffecb5; 
+            border-radius: 10px; 
+            padding: 20px; 
+            margin: 30px 0;
+            color: #856404;
+        }
+        .upload-instruction h3 { margin-bottom: 10px; color: #856404; }
 
         /* Responsif */
         @media (max-width: 768px) {
             .mobile-menu-btn { display: block; }
-            nav { position: fixed; top: 70px; left: -100%; width: 100%; height: calc(100vh - 70px); background: white; transition: left 0.3s; }
+            nav { position: fixed; top: 70px; left: -100%; width: 100%; height: calc(100vh - 70px); background: white; transition: left 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
             nav.active { left: 0; }
             nav ul { flex-direction: column; padding: 30px; }
             nav ul li { margin: 0 0 20px 0; }
             .hero h2 { font-size: 2rem; }
             .hero { padding: 70px 0; }
+            .product-actions { flex-direction: column; }
+            .product-actions .btn { width: 100%; }
         }
         @media (max-width: 576px) {
             .products { grid-template-columns: 1fr; }
             .hero h2 { font-size: 1.8rem; }
+            .section-title h2 { font-size: 2rem; }
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -105,30 +138,55 @@
     <section class="hero" id="home">
         <div class="container">
             <h2>Kecambah Segar & Organik</h2>
-            <p>Nikmati berbagai jenis kecambah berkualitas tinggi yang ditanam secara organik tanpa bahan kimia.</p>
+            <p>Nikmati berbagai jenis kecambah berkualitas tinggi yang ditanam secara organik tanpa bahan kimia. Kesehatan dimulai dari pilihan yang tepat!</p>
             <a href="#products" class="btn">Belanja Sekarang</a>
         </div>
     </section>
 
     <section class="container">
         <div class="section-title" id="products">
-            <h2>Produk Kecambah</h2>
-            <p>Kecambah segar untuk kesehatan optimal Anda</p>
+            <h2>Produk Kecambah Kami</h2>
+            <p>Kecambah segar dipanen setiap hari untuk kesehatan optimal Anda</p>
         </div>
+        
+        <div class="upload-instruction">
+            <h3><i class="fas fa-info-circle"></i> Cara Mengganti Gambar Produk:</h3>
+            <p>1. Download gambar dari Facebook yang Anda inginkan</p>
+            <p>2. Upload ke hosting gambar seperti <a href="https://imgbb.com/" target="_blank">ImgBB</a> atau <a href="https://postimages.org/" target="_blank">PostImage</a></p>
+            <p>3. Copy URL gambar yang sudah diupload</p>
+            <p>4. Ganti URL di bagian JavaScript (variabel products - img)</p>
+        </div>
+
         <div class="products" id="products-container"></div>
     </section>
 
     <section class="benefits" id="benefits">
         <div class="container">
             <div class="section-title">
-                <h2>Manfaat Kecambah</h2>
-                <p>Nutrisi tinggi untuk tubuh sehat</p>
+                <h2>Manfaat Kecambah Organik</h2>
+                <p>Nutrisi lengkap untuk hidup lebih sehat</p>
             </div>
             <div class="benefits-grid">
-                <div class="benefit-item"><i class="fas fa-heart"></i><h3>Jantung Sehat</h3><p>Menurunkan kolesterol dan tekanan darah</p></div>
-                <div class="benefit-item"><i class="fas fa-digestion"></i><h3>Pencernaan</h3><p>Tinggi serat untuk pencernaan lancar</p></div>
-                <div class="benefit-item"><i class="fas fa-shield-virus"></i><h3>Imunitas</h3><p>Meningkatkan sistem kekebalan tubuh</p></div>
-                <div class="benefit-item"><i class="fas fa-weight"></i><h3>Diet Sehat</h3><p>Rendah kalori, tinggi nutrisi</p></div>
+                <div class="benefit-item">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Jantung Sehat</h3>
+                    <p>Menurunkan kolesterol dan tekanan darah, menjaga kesehatan jantung</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-stomach"></i>
+                    <h3>Pencernaan Lancar</h3>
+                    <p>Tinggi serat alami untuk sistem pencernaan yang sehat</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Imunitas Kuat</h3>
+                    <p>Meningkatkan sistem kekebalan tubuh dengan vitamin C tinggi</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-weight"></i>
+                    <h3>Diet Sehat</h3>
+                    <p>Rendah kalori, tinggi nutrisi, cocok untuk program diet</p>
+                </div>
             </div>
         </div>
     </section>
@@ -136,29 +194,47 @@
     <footer id="contact">
         <div class="container">
             <div class="footer-content">
-                <div><h3>Kecambah Sehat</h3><p>Kecambah organik berkualitas untuk kesehatan keluarga.</p>
+                <div>
+                    <h3>Kecambah Sehat</h3>
+                    <p>Menyediakan kecambah organik berkualitas untuk kesehatan keluarga Indonesia sejak 2020.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 <div>
-                    <h3>Kontak</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Jln.ketapang-siduk km13.suka maju</p>
-                    <p><i class="fas fa-phone"></i> 085275135061</p>
+                    <h3>Kontak Kami</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Jln. Ketapang-Siduk KM13, Suka Maju</p>
+                    <p><i class="fas fa-phone"></i> 0852-7513-5061</p>
                     <p><i class="fas fa-envelope"></i> kecambahsehat@gmail.com</p>
                 </div>
+                <div>
+                    <h3>Jam Operasional</h3>
+                    <p>Senin - Jumat: 08:00 - 17:00</p>
+                    <p>Sabtu: 08:00 - 15:00</p>
+                    <p>Minggu: Libur</p>
+                </div>
             </div>
-            <div class="copyright">© 2026 Kecambah Sehat. Hak Cipta Dilindungi.</div>
+            <div class="copyright">
+                © 2026 Kecambah Sehat. Hak Cipta Dilindungi Undang-Undang.
+            </div>
         </div>
     </footer>
 
     <div class="modal" id="cartModal">
         <div class="modal-content">
-            <div class="modal-header"><h2>Keranjang Belanja</h2><span class="close-modal">×</span></div>
-            <div id="cartItems"><p id="emptyCartMessage">Keranjang belanja Anda masih kosong.</p></div>
-            <div class="cart-total">Total: Rp <span id="cartTotal">0</span></div>
-            <div style="text-align: right; margin-top: 20px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-shopping-cart"></i> Keranjang Belanja</h2>
+                <span class="close-modal">×</span>
+            </div>
+            <div id="cartItems">
+                <p id="emptyCartMessage">Keranjang belanja Anda masih kosong.</p>
+            </div>
+            <div class="cart-total">
+                Total: Rp <span id="cartTotal">0</span>
+            </div>
+            <div style="text-align: right; margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;">
                 <button class="btn btn-orange" id="closeCart">Lanjut Belanja</button>
                 <button class="btn" id="checkout">Checkout</button>
             </div>
@@ -166,49 +242,55 @@
     </div>
 
     <script>
-        // Data produk dengan gambar dari Unsplash user @maden77
+        // Data produk - GANTI URL GAMBAR DI SINI!
         const products = [
             {
                 id: 1,
                 name: "Kecambah Kacang Hijau",
                 price: 15000,
-                img: "https://images.unsplash.com/photo-1682685797366-715d29e33f9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Kaya protein dan vitamin C, organik 100%"
+                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Kacang+Hijau", // Ganti dengan URL gambar Anda
+                desc: "Kaya protein dan vitamin C, organik 100%, tanpa pestisida",
+                stock: 50
             },
             {
                 id: 2,
                 name: "Kecambah Alfalfa",
                 price: 25000,
-                img: "https://images.unsplash.com/photo-1682687982185-531d09ec56fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Tekstur renyah, kaya mineral dan antioksidan"
+                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Alfalfa", // Ganti dengan URL gambar Anda
+                desc: "Tekstur renyah, kaya mineral dan antioksidan alami",
+                stock: 35
             },
             {
                 id: 3,
                 name: "Kecambah Kedelai",
                 price: 18000,
-                img: "https://images.unsplash.com/photo-1682685797366-715d29e33f9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Sumber protein nabati dan isoflavon terbaik"
+                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Kedelai", // Ganti dengan URL gambar Anda
+                desc: "Sumber protein nabati dan isoflavon untuk kesehatan wanita",
+                stock: 40
             },
             {
                 id: 4,
                 name: "Kecambah Brokoli",
                 price: 30000,
-                img: "https://images.unsplash.com/photo-1682687982183-c2957aee17bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Kandungan sulforaphane tinggi untuk detoksifikasi"
+                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Brokoli", // Ganti dengan URL gambar Anda
+                desc: "Kandungan sulforaphane tinggi untuk detoksifikasi tubuh",
+                stock: 25
             },
             {
                 id: 5,
                 name: "Kecambah Lentil",
                 price: 22000,
-                img: "https://images.unsplash.com/photo-1682687982185-531d09ec56fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Kaya zat besi, serat, dan vitamin B kompleks"
+                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Lentil", // Ganti dengan URL gambar Anda
+                desc: "Kaya zat besi, serat, dan vitamin B kompleks",
+                stock: 30
             },
             {
                 id: 6,
                 name: "Kecambah Mix Premium",
                 price: 35000,
-                img: "https://images.unsplash.com/photo-1682685797366-715d29e33f9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Campuran 4 jenis kecambah organik premium"
+                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Mix+Premium", // Ganti dengan URL gambar Anda
+                desc: "Campuran 4 jenis kecambah organik premium dalam satu paket",
+                stock: 20
             }
         ];
 
@@ -220,17 +302,25 @@
         // Render produk
         function renderProducts() {
             productsContainer.innerHTML = products.map(p => `
-                <div class="product-card">
+                <div class="product-card" style="animation: fadeIn 0.5s ease;">
                     <div class="product-img">
-                        <img src="${p.img}" alt="${p.name}" loading="lazy">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Gambar+Tidak+Tersedia'">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">${p.name}</h3>
-                        <p>${p.desc}</p>
+                        <p style="color: #666; font-size: 0.9rem; margin-bottom: 10px;">${p.desc}</p>
                         <div class="product-price">Rp ${p.price.toLocaleString()}</div>
+                        <p style="font-size: 0.8rem; color: #888; margin-bottom: 15px;">
+                            <i class="fas fa-box"></i> Stok: ${p.stock} | 
+                            <i class="fas fa-shipping-fast"></i> Pengiriman Hari Ini
+                        </p>
                         <div class="product-actions">
-                            <button class="btn" onclick="addToCart(${p.id})">Tambah</button>
-                            <button class="btn btn-orange" onclick="showProductDetail(${p.id})">Detail</button>
+                            <button class="btn" onclick="addToCart(${p.id})">
+                                <i class="fas fa-cart-plus"></i> Tambah
+                            </button>
+                            <button class="btn btn-orange" onclick="showProductDetail(${p.id})">
+                                <i class="fas fa-info-circle"></i> Detail
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -242,42 +332,84 @@
             const product = products.find(p => p.id === id);
             const modalHTML = `
                 <div style="padding: 20px; max-width: 500px;">
-                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                        <img src="${product.img}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover; border-radius: 10px; margin-right: 20px;">
-                        <div>
+                    <div style="display: flex; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap;">
+                        <img src="${product.img}" alt="${product.name}" style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px; margin-right: 20px; margin-bottom: 20px;">
+                        <div style="flex: 1;">
                             <h3 style="color: var(--hijau); margin-bottom: 10px;">${product.name}</h3>
-                            <p style="font-size: 1.5rem; font-weight: bold; color: var(--orange);">Rp ${product.price.toLocaleString()}</p>
+                            <p style="font-size: 1.5rem; font-weight: bold; color: var(--orange); margin-bottom: 10px;">
+                                Rp ${product.price.toLocaleString()}
+                            </p>
+                            <p style="background: #f0f7f0; padding: 8px 12px; border-radius: 5px; display: inline-block; color: var(--hijau);">
+                                <i class="fas fa-box"></i> Stok: ${product.stock}
+                            </p>
                         </div>
                     </div>
-                    <p style="margin-bottom: 20px;">${product.desc}</p>
-                    <p style="color: #666; font-style: italic;">✔️ Organik 100%<br>✔️ Tanpa bahan kimia<br>✔️ Panen harian<br>✔️ Kemasan higienis</p>
-                    <div style="text-align: right; margin-top: 20px;">
-                        <button class="btn" onclick="addToCart(${product.id}); document.getElementById('detailModal').remove();">Tambah ke Keranjang</button>
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                        <h4 style="color: var(--hijau); margin-bottom: 10px;">Deskripsi Produk</h4>
+                        <p style="margin-bottom: 10px;">${product.desc}</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px;">
+                        <div style="background: #e8f5e8; padding: 10px; border-radius: 5px; text-align: center;">
+                            <i class="fas fa-leaf" style="color: var(--hijau);"></i>
+                            <p style="margin: 5px 0 0; font-size: 0.9rem;">Organik 100%</p>
+                        </div>
+                        <div style="background: #e8f5e8; padding: 10px; border-radius: 5px; text-align: center;">
+                            <i class="fas fa-ban" style="color: var(--hijau);"></i>
+                            <p style="margin: 5px 0 0; font-size: 0.9rem;">Tanpa Kimia</p>
+                        </div>
+                        <div style="background: #e8f5e8; padding: 10px; border-radius: 5px; text-align: center;">
+                            <i class="fas fa-shipping-fast" style="color: var(--hijau);"></i>
+                            <p style="margin: 5px 0 0; font-size: 0.9rem;">Segar</p>
+                        </div>
+                        <div style="background: #e8f5e8; padding: 10px; border-radius: 5px; text-align: center;">
+                            <i class="fas fa-award" style="color: var(--hijau);"></i>
+                            <p style="margin: 5px 0 0; font-size: 0.9rem;">Berkualitas</p>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <button class="btn" onclick="addToCart(${product.id}); document.getElementById('detailModal').remove();" style="width: 100%;">
+                            <i class="fas fa-cart-plus"></i> Tambah ke Keranjang - Rp ${product.price.toLocaleString()}
+                        </button>
                     </div>
                 </div>
             `;
             
             const modal = document.createElement('div');
             modal.id = 'detailModal';
-            modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:3000; display:flex; justify-content:center; align-items:center;';
+            modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:3000; display:flex; justify-content:center; align-items:center; padding: 20px;';
             modal.innerHTML = `
-                <div style="background:white; border-radius:10px; padding:30px; max-width:90%; max-height:90vh; overflow-y:auto;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                        <h2 style="color:var(--hijau);">Detail Produk</h2>
-                        <span onclick="document.getElementById('detailModal').remove()" style="font-size:2rem; cursor:pointer; color:#666;">&times;</span>
+                <div style="background:white; border-radius:10px; padding:30px; max-width:90%; max-height:90vh; overflow-y:auto; animation: fadeIn 0.3s ease;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:1px solid #eee;">
+                        <h2 style="color:var(--hijau); margin:0;">Detail Produk</h2>
+                        <span onclick="document.getElementById('detailModal').remove()" style="font-size:2rem; cursor:pointer; color:#666; line-height:1;">&times;</span>
                     </div>
                     ${modalHTML}
                 </div>
             `;
             
             document.body.appendChild(modal);
+            
+            // Tutup modal saat klik di luar
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) {
+                    modal.remove();
+                }
+            });
         }
 
-        // Keranjang
+        // Keranjang belanja
         function addToCart(id) {
             const product = products.find(p => p.id === id);
             const existing = cart.find(item => item.id === id);
-            existing ? existing.qty++ : cart.push({...product, qty:1});
+            
+            // Cek stok
+            const totalInCart = existing ? existing.qty : 0;
+            if (totalInCart >= product.stock) {
+                showNotif(`Stok ${product.name} tidak mencukupi!`, 'error');
+                return;
+            }
+            
+            existing ? existing.qty++ : cart.push({...product, qty: 1});
             updateCart();
             showNotif(`${product.name} ditambahkan ke keranjang`);
         }
@@ -297,31 +429,41 @@
 
             emptyMsg.style.display = 'none';
             cartItems.innerHTML = cart.map((item, i) => `
-                <div class="cart-item">
-                    <img src="${item.img}" alt="${item.name}" width="80" height="80" style="object-fit: cover; border-radius: 5px;">
+                <div class="cart-item" style="animation: fadeIn 0.3s ease;">
+                    <img src="${item.img}" alt="${item.name}" width="70" height="70" style="object-fit: cover; border-radius: 5px;">
                     <div style="flex:1; margin-left:15px;">
-                        <h4 style="margin-bottom: 5px;">${item.name}</h4>
+                        <h4 style="margin-bottom: 5px; color: var(--hijau);">${item.name}</h4>
                         <p style="color: #666; font-size: 0.9rem;">Rp ${item.price.toLocaleString()} x ${item.qty}</p>
-                        <p style="color: var(--hijau); font-weight: bold;">Rp ${(item.price * item.qty).toLocaleString()}</p>
+                        <p style="color: var(--orange); font-weight: bold; font-size: 0.9rem;">
+                            Subtotal: Rp ${(item.price * item.qty).toLocaleString()}
+                        </p>
                     </div>
-                    <div style="display: flex; align-items: center;">
-                        <button onclick="updateQty(${i}, -1)" style="width: 30px; height: 30px; border: none; background: #f0f0f0; cursor: pointer; border-radius: 5px; font-weight: bold;">-</button>
-                        <span style="margin:0 10px; font-weight: bold; min-width: 20px; text-align: center;">${item.qty}</span>
-                        <button onclick="updateQty(${i}, 1)" style="width: 30px; height: 30px; border: none; background: #f0f0f0; cursor: pointer; border-radius: 5px; font-weight: bold;">+</button>
-                        <button style="margin-left:15px; width: 30px; height: 30px; border: none; background: #ffebee; color:#c62828; cursor: pointer; border-radius: 5px;" onclick="removeItem(${i})">
+                    <div style="display: flex; align-items: center; gap: 5px;">
+                        <button onclick="updateQty(${i}, -1)" style="width: 30px; height: 30px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 5px; font-weight: bold;">-</button>
+                        <span style="margin:0 5px; font-weight: bold; min-width: 20px; text-align: center;">${item.qty}</span>
+                        <button onclick="updateQty(${i}, 1)" style="width: 30px; height: 30px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 5px; font-weight: bold;">+</button>
+                        <button style="margin-left:10px; width: 30px; height: 30px; border: none; background: #ffebee; color:#c62828; cursor: pointer; border-radius: 5px;" onclick="removeItem(${i})" title="Hapus">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
                 </div>
             `).join('');
-
-            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
             totalEl.textContent = total.toLocaleString();
         }
 
         function updateQty(i, change) {
+            const product = products.find(p => p.id === cart[i].id);
+            
+            if (change > 0 && cart[i].qty >= product.stock) {
+                showNotif(`Stok ${product.name} hanya tersedia ${product.stock} buah`, 'error');
+                return;
+            }
+            
             cart[i].qty += change;
-            if(cart[i].qty <= 0) cart.splice(i, 1);
+            if(cart[i].qty <= 0) {
+                cart.splice(i, 1);
+            }
             updateCart();
         }
 
@@ -329,32 +471,44 @@
             const itemName = cart[i].name;
             cart.splice(i, 1);
             updateCart();
-            showNotif(`${itemName} dihapus dari keranjang`);
+            showNotif(`${itemName} dihapus dari keranjang`, 'warning');
         }
 
-        function showNotif(msg) {
+        function showNotif(msg, type = 'success') {
+            const colors = {
+                success: '#4caf50',
+                error: '#f44336',
+                warning: '#ff9800',
+                info: '#2196f3'
+            };
+            
             const notif = document.createElement('div');
-            notif.style.cssText = 'position:fixed; top:20px; right:20px; background:#4caf50; color:white; padding:15px 20px; border-radius:5px; z-index:3000; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); animation: slideIn 0.3s ease;';
-            notif.textContent = msg;
+            notif.style.cssText = `
+                position:fixed; top:20px; right:20px; 
+                background:${colors[type]}; color:white; 
+                padding:15px 20px; border-radius:5px; 
+                z-index:3000; font-weight: 600; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+                animation: slideIn 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            `;
+            
+            const icon = type === 'success' ? 'check-circle' : 
+                        type === 'error' ? 'exclamation-circle' : 
+                        type === 'warning' ? 'exclamation-triangle' : 'info-circle';
+            
+            notif.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${msg}</span>
+            `;
+            
             document.body.appendChild(notif);
             setTimeout(() => {
                 notif.style.animation = 'slideOut 0.3s ease';
                 setTimeout(() => notif.remove(), 300);
             }, 3000);
-            
-            // Tambahkan style animasi
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes slideOut {
-                    from { transform: translateX(0); opacity: 1; }
-                    to { transform: translateX(100%); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
         }
 
         // Event listeners
@@ -362,8 +516,10 @@
             renderProducts();
             
             // Event untuk membuka modal keranjang
-            document.querySelector('.cart-icon').addEventListener('click', () => {
+            document.querySelector('.cart-icon').addEventListener('click', (e) => {
+                e.preventDefault();
                 cartModal.style.display = 'flex';
+                cartModal.style.animation = 'fadeIn 0.3s ease';
             });
             
             // Event untuk menutup modal
@@ -378,41 +534,50 @@
             // Event untuk checkout
             document.querySelector('#checkout').addEventListener('click', () => {
                 if(cart.length === 0) {
-                    alert('Keranjang kosong!');
+                    showNotif('Keranjang kosong!', 'error');
                     return;
                 }
                 
                 const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
                 const itemsList = cart.map(item => 
                     `• ${item.name} (${item.qty} x Rp ${item.price.toLocaleString()}) = Rp ${(item.price * item.qty).toLocaleString()}`
-                ).join('\n');
+                ).join('%0A');
                 
-                const whatsappMessage = `Halo Kecambah Sehat! Saya ingin memesan:\n\n${itemsList}\n\nTotal: Rp ${total.toLocaleString()}\n\nNama: \nAlamat: \nNo. HP:`;
-                const encodedMessage = encodeURIComponent(whatsappMessage);
-                const whatsappURL = `https://wa.me/6285275135061?text=${encodedMessage}`;
+                const customerInfo = `%0A%0ANama: %0AAlamat: %0ANo. HP: %0AMetode Pembayaran: %0ACatatan: `;
+                const whatsappMessage = `Halo Kecambah Sehat! Saya ingin memesan:%0A%0A${itemsList}%0A%0ATotal: Rp ${total.toLocaleString()}${customerInfo}`;
+                const whatsappURL = `https://wa.me/6285275135061?text=${whatsappMessage}`;
                 
                 const checkoutModal = document.createElement('div');
-                checkoutModal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:3000; display:flex; justify-content:center; align-items:center;';
+                checkoutModal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:3000; display:flex; justify-content:center; align-items:center; padding: 20px;';
                 checkoutModal.innerHTML = `
-                    <div style="background:white; border-radius:10px; padding:30px; max-width:500px; width:90%;">
-                        <h2 style="color:var(--hijau); margin-bottom:20px;">Konfirmasi Pesanan</h2>
+                    <div style="background:white; border-radius:10px; padding:30px; max-width:500px; width:90%; animation: fadeIn 0.3s ease;">
+                        <h2 style="color:var(--hijau); margin-bottom:20px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-shopping-bag"></i> Konfirmasi Pesanan
+                        </h2>
                         <div style="background:#f9f9f9; padding:15px; border-radius:5px; margin-bottom:20px; max-height:200px; overflow-y:auto;">
-                            <h4 style="margin-bottom:10px;">Detail Pesanan:</h4>
+                            <h4 style="margin-bottom:10px; color: #555;">Detail Pesanan:</h4>
                             ${cart.map(item => `
-                                <p style="margin:5px 0; padding-bottom:5px; border-bottom:1px solid #eee;">
-                                    ${item.name}<br>
-                                    <small>${item.qty} x Rp ${item.price.toLocaleString()} = Rp ${(item.price * item.qty).toLocaleString()}</small>
-                                </p>
+                                <div style="margin:10px 0; padding-bottom:10px; border-bottom:1px solid #eee;">
+                                    <p style="margin:0; font-weight: 500;">${item.name}</p>
+                                    <p style="margin:5px 0 0; color:#666; font-size:0.9rem;">
+                                        ${item.qty} x Rp ${item.price.toLocaleString()} = 
+                                        <strong style="color:var(--orange);">Rp ${(item.price * item.qty).toLocaleString()}</strong>
+                                    </p>
+                                </div>
                             `).join('')}
-                            <p style="margin-top:10px; font-weight:bold; color:var(--hijau);">
+                            <p style="margin-top:15px; font-weight:bold; color:var(--hijau); font-size:1.1rem; text-align: right;">
                                 Total: Rp ${total.toLocaleString()}
-                            </p>
+        </p>
                         </div>
-                        <p style="margin-bottom:20px; color:#666;">Silakan hubungi kami via WhatsApp untuk menyelesaikan pemesanan:</p>
-                        <div style="display:flex; gap:10px; justify-content:flex-end;">
-                            <button class="btn btn-orange" onclick="this.parentElement.parentElement.parentElement.remove()">Batal</button>
-                            <a href="${whatsappURL}" target="_blank" class="btn" style="background:#25D366; display:flex; align-items:center; gap:8px;">
-                                <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
+                        <p style="margin-bottom:20px; color:#666; font-size:0.9rem;">
+                            <i class="fas fa-info-circle"></i> Pesanan akan dikirimkan setelah konfirmasi pembayaran.
+                        </p>
+                        <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap: wrap;">
+                            <button class="btn btn-orange" onclick="this.parentElement.parentElement.parentElement.remove()" style="flex: 1;">
+                                <i class="fas fa-arrow-left"></i> Kembali
+                            </button>
+                            <a href="${whatsappURL}" target="_blank" class="btn btn-whatsapp" style="flex: 2; display:flex; align-items:center; justify-content:center; gap:8px;">
+                                <i class="fab fa-whatsapp"></i> Lanjutkan via WhatsApp
                             </a>
                         </div>
                     </div>
@@ -447,7 +612,7 @@
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     const targetId = this.getAttribute('href');
-                    if(targetId === '#') return;
+                    if(targetId === '#' || targetId.startsWith('#cart')) return;
                     
                     const targetElement = document.querySelector(targetId);
                     if(targetElement) {
@@ -456,8 +621,34 @@
                             top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
+                        
+                        // Tutup menu mobile jika terbuka
+                        document.querySelector('nav').classList.remove('active');
                     }
                 });
+            });
+            
+            // Animasi saat scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe semua product cards
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
             });
         });
     </script>
