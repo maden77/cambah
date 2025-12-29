@@ -166,49 +166,49 @@
     </div>
 
     <script>
-        // Data produk dengan gambar yang valid
+        // Data produk dengan gambar dari Unsplash user @maden77
         const products = [
             {
                 id: 1,
                 name: "Kecambah Kacang Hijau",
                 price: 15000,
-                img: "https://images.unsplash.com/photo-1615485500609-9c6d6d5e7b6a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Kaya protein dan vitamin C"
+                img: "https://images.unsplash.com/photo-1682685797366-715d29e33f9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                desc: "Kaya protein dan vitamin C, organik 100%"
             },
             {
                 id: 2,
                 name: "Kecambah Alfalfa",
                 price: 25000,
-                img: "https://images.unsplash.com/photo-1543352633-99d4f9b8d6e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Tekstur renyah, banyak mineral"
+                img: "https://images.unsplash.com/photo-1682687982185-531d09ec56fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                desc: "Tekstur renyah, kaya mineral dan antioksidan"
             },
             {
                 id: 3,
                 name: "Kecambah Kedelai",
                 price: 18000,
-                img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Kaya protein dan isoflavon"
+                img: "https://images.unsplash.com/photo-1682685797366-715d29e33f9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                desc: "Sumber protein nabati dan isoflavon terbaik"
             },
             {
                 id: 4,
                 name: "Kecambah Brokoli",
                 price: 30000,
-                img: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Kandungan sulforaphane tinggi"
+                img: "https://images.unsplash.com/photo-1682687982183-c2957aee17bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                desc: "Kandungan sulforaphane tinggi untuk detoksifikasi"
             },
             {
                 id: 5,
                 name: "Kecambah Lentil",
                 price: 22000,
-                img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Kaya zat besi dan serat"
+                img: "https://images.unsplash.com/photo-1682687982185-531d09ec56fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                desc: "Kaya zat besi, serat, dan vitamin B kompleks"
             },
             {
                 id: 6,
-                name: "Kecambah Mix",
+                name: "Kecambah Mix Premium",
                 price: 35000,
-                img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-                desc: "Campuran kecambah premium"
+                img: "https://images.unsplash.com/photo-1682685797366-715d29e33f9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                desc: "Campuran 4 jenis kecambah organik premium"
             }
         ];
 
@@ -240,7 +240,37 @@
         // Fungsi untuk menampilkan detail produk
         function showProductDetail(id) {
             const product = products.find(p => p.id === id);
-            alert(`${product.name}\n\n${product.desc}\n\nHarga: Rp ${product.price.toLocaleString()}`);
+            const modalHTML = `
+                <div style="padding: 20px; max-width: 500px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <img src="${product.img}" alt="${product.name}" style="width: 150px; height: 150px; object-fit: cover; border-radius: 10px; margin-right: 20px;">
+                        <div>
+                            <h3 style="color: var(--hijau); margin-bottom: 10px;">${product.name}</h3>
+                            <p style="font-size: 1.5rem; font-weight: bold; color: var(--orange);">Rp ${product.price.toLocaleString()}</p>
+                        </div>
+                    </div>
+                    <p style="margin-bottom: 20px;">${product.desc}</p>
+                    <p style="color: #666; font-style: italic;">✔️ Organik 100%<br>✔️ Tanpa bahan kimia<br>✔️ Panen harian<br>✔️ Kemasan higienis</p>
+                    <div style="text-align: right; margin-top: 20px;">
+                        <button class="btn" onclick="addToCart(${product.id}); document.getElementById('detailModal').remove();">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+            `;
+            
+            const modal = document.createElement('div');
+            modal.id = 'detailModal';
+            modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:3000; display:flex; justify-content:center; align-items:center;';
+            modal.innerHTML = `
+                <div style="background:white; border-radius:10px; padding:30px; max-width:90%; max-height:90vh; overflow-y:auto;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                        <h2 style="color:var(--hijau);">Detail Produk</h2>
+                        <span onclick="document.getElementById('detailModal').remove()" style="font-size:2rem; cursor:pointer; color:#666;">&times;</span>
+                    </div>
+                    ${modalHTML}
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
         }
 
         // Keranjang
@@ -270,14 +300,15 @@
                 <div class="cart-item">
                     <img src="${item.img}" alt="${item.name}" width="80" height="80" style="object-fit: cover; border-radius: 5px;">
                     <div style="flex:1; margin-left:15px;">
-                        <h4>${item.name}</h4>
-                        <p>Rp ${item.price.toLocaleString()} x ${item.qty}</p>
+                        <h4 style="margin-bottom: 5px;">${item.name}</h4>
+                        <p style="color: #666; font-size: 0.9rem;">Rp ${item.price.toLocaleString()} x ${item.qty}</p>
+                        <p style="color: var(--hijau); font-weight: bold;">Rp ${(item.price * item.qty).toLocaleString()}</p>
                     </div>
                     <div style="display: flex; align-items: center;">
-                        <button onclick="updateQty(${i}, -1)" style="padding: 5px 10px; border: none; background: #f0f0f0; cursor: pointer; border-radius: 3px;">-</button>
-                        <span style="margin:0 10px; font-weight: bold;">${item.qty}</span>
-                        <button onclick="updateQty(${i}, 1)" style="padding: 5px 10px; border: none; background: #f0f0f0; cursor: pointer; border-radius: 3px;">+</button>
-                        <button style="margin-left:15px; padding: 5px 10px; border: none; background: #ffebee; color:#c62828; cursor: pointer; border-radius: 3px;" onclick="removeItem(${i})">
+                        <button onclick="updateQty(${i}, -1)" style="width: 30px; height: 30px; border: none; background: #f0f0f0; cursor: pointer; border-radius: 5px; font-weight: bold;">-</button>
+                        <span style="margin:0 10px; font-weight: bold; min-width: 20px; text-align: center;">${item.qty}</span>
+                        <button onclick="updateQty(${i}, 1)" style="width: 30px; height: 30px; border: none; background: #f0f0f0; cursor: pointer; border-radius: 5px; font-weight: bold;">+</button>
+                        <button style="margin-left:15px; width: 30px; height: 30px; border: none; background: #ffebee; color:#c62828; cursor: pointer; border-radius: 5px;" onclick="removeItem(${i})">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -295,16 +326,35 @@
         }
 
         function removeItem(i) {
+            const itemName = cart[i].name;
             cart.splice(i, 1);
             updateCart();
+            showNotif(`${itemName} dihapus dari keranjang`);
         }
 
         function showNotif(msg) {
             const notif = document.createElement('div');
-            notif.style.cssText = 'position:fixed; top:20px; right:20px; background:#4caf50; color:white; padding:15px 20px; border-radius:5px; z-index:3000; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15);';
+            notif.style.cssText = 'position:fixed; top:20px; right:20px; background:#4caf50; color:white; padding:15px 20px; border-radius:5px; z-index:3000; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); animation: slideIn 0.3s ease;';
             notif.textContent = msg;
             document.body.appendChild(notif);
-            setTimeout(() => notif.remove(), 3000);
+            setTimeout(() => {
+                notif.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notif.remove(), 300);
+            }, 3000);
+            
+            // Tambahkan style animasi
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
         }
 
         // Event listeners
@@ -334,15 +384,48 @@
                 
                 const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
                 const itemsList = cart.map(item => 
-                    `${item.name} (${item.qty} x Rp ${item.price.toLocaleString()})`
+                    `• ${item.name} (${item.qty} x Rp ${item.price.toLocaleString()}) = Rp ${(item.price * item.qty).toLocaleString()}`
                 ).join('\n');
                 
-                alert(`Pesanan Anda:\n\n${itemsList}\n\nTotal: Rp ${total.toLocaleString()}\n\nHarap hubungi penjual via WhatsApp untuk konfirmasi pesanan!`);
+                const whatsappMessage = `Halo Kecambah Sehat! Saya ingin memesan:\n\n${itemsList}\n\nTotal: Rp ${total.toLocaleString()}\n\nNama: \nAlamat: \nNo. HP:`;
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                const whatsappURL = `https://wa.me/6285275135061?text=${encodedMessage}`;
                 
-                // Reset keranjang
-                cart = [];
-                updateCart();
-                cartModal.style.display = 'none';
+                const checkoutModal = document.createElement('div');
+                checkoutModal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:3000; display:flex; justify-content:center; align-items:center;';
+                checkoutModal.innerHTML = `
+                    <div style="background:white; border-radius:10px; padding:30px; max-width:500px; width:90%;">
+                        <h2 style="color:var(--hijau); margin-bottom:20px;">Konfirmasi Pesanan</h2>
+                        <div style="background:#f9f9f9; padding:15px; border-radius:5px; margin-bottom:20px; max-height:200px; overflow-y:auto;">
+                            <h4 style="margin-bottom:10px;">Detail Pesanan:</h4>
+                            ${cart.map(item => `
+                                <p style="margin:5px 0; padding-bottom:5px; border-bottom:1px solid #eee;">
+                                    ${item.name}<br>
+                                    <small>${item.qty} x Rp ${item.price.toLocaleString()} = Rp ${(item.price * item.qty).toLocaleString()}</small>
+                                </p>
+                            `).join('')}
+                            <p style="margin-top:10px; font-weight:bold; color:var(--hijau);">
+                                Total: Rp ${total.toLocaleString()}
+                            </p>
+                        </div>
+                        <p style="margin-bottom:20px; color:#666;">Silakan hubungi kami via WhatsApp untuk menyelesaikan pemesanan:</p>
+                        <div style="display:flex; gap:10px; justify-content:flex-end;">
+                            <button class="btn btn-orange" onclick="this.parentElement.parentElement.parentElement.remove()">Batal</button>
+                            <a href="${whatsappURL}" target="_blank" class="btn" style="background:#25D366; display:flex; align-items:center; gap:8px;">
+                                <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(checkoutModal);
+                
+                // Tutup modal checkout saat klik di luar
+                checkoutModal.addEventListener('click', (e) => {
+                    if(e.target === checkoutModal) {
+                        checkoutModal.remove();
+                    }
+                });
             });
             
             // Event untuk menu mobile
@@ -363,12 +446,12 @@
             // Smooth scroll untuk link anchor
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
                     const targetId = this.getAttribute('href');
                     if(targetId === '#') return;
                     
                     const targetElement = document.querySelector(targetId);
                     if(targetElement) {
+                        e.preventDefault();
                         window.scrollTo({
                             top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
