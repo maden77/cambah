@@ -270,7 +270,7 @@
             document.querySelector('#checkout').addEventListener('click', () => {
                 if(cart.length === 0) return alert('Keranjang kosong!');
                 const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-                alert(`Terima kasih! Total: Rp ${total.toLocaleString()}`);
+                alert(`Belum bisa bayar online ya🙏 harap hubungi penjual! Total: Rp ${total.toLocaleString()}`);
                 cart = [];
                 updateCart();
                 cartModal.style.display = 'none';
