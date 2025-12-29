@@ -74,17 +74,6 @@
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
         .cart-total { text-align: right; margin-top: 20px; font-size: 1.3rem; font-weight: 700; }
 
-        /* Upload Section */
-        .upload-instruction { 
-            background: #fff3cd; 
-            border: 1px solid #ffecb5; 
-            border-radius: 10px; 
-            padding: 20px; 
-            margin: 30px 0;
-            color: #856404;
-        }
-        .upload-instruction h3 { margin-bottom: 10px; color: #856404; }
-
         /* Responsif */
         @media (max-width: 768px) {
             .mobile-menu-btn { display: block; }
@@ -147,14 +136,6 @@
         <div class="section-title" id="products">
             <h2>Produk Kecambah Kami</h2>
             <p>Kecambah segar dipanen setiap hari untuk kesehatan optimal Anda</p>
-        </div>
-        
-        <div class="upload-instruction">
-            <h3><i class="fas fa-info-circle"></i> Cara Mengganti Gambar Produk:</h3>
-            <p>1. Download gambar dari Facebook yang Anda inginkan</p>
-            <p>2. Upload ke hosting gambar seperti <a href="https://imgbb.com/" target="_blank">ImgBB</a> atau <a href="https://postimages.org/" target="_blank">PostImage</a></p>
-            <p>3. Copy URL gambar yang sudah diupload</p>
-            <p>4. Ganti URL di bagian JavaScript (variabel products - img)</p>
         </div>
 
         <div class="products" id="products-container"></div>
@@ -242,54 +223,54 @@
     </div>
 
     <script>
-        // Data produk - GANTI URL GAMBAR DI SINI!
+        // Data produk dengan gambar yang Anda berikan
         const products = [
             {
                 id: 1,
                 name: "Kecambah Kacang Hijau",
                 price: 15000,
-                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Kacang+Hijau", // Ganti dengan URL gambar Anda
-                desc: "Kaya protein dan vitamin C, organik 100%, tanpa pestisida",
+                img: "https://i.postimg.cc/py9NFgjm/IMG20251229145242.jpg",
+                desc: "Kaya protein dan vitamin C, organik 100%, tanpa pestisida. Kecambah segar dipanen hari ini.",
                 stock: 50
             },
             {
                 id: 2,
-                name: "Kecambah Alfalfa",
+                name: "Kecambah Alfalfa Premium",
                 price: 25000,
-                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Alfalfa", // Ganti dengan URL gambar Anda
-                desc: "Tekstur renyah, kaya mineral dan antioksidan alami",
+                img: "https://images.unsplash.com/photo-1543352633-99d4f9b8d6e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                desc: "Tekstur renyah, kaya mineral dan antioksidan alami. Baik untuk salad dan jus.",
                 stock: 35
             },
             {
                 id: 3,
-                name: "Kecambah Kedelai",
+                name: "Kecambah Kedelai Organik",
                 price: 18000,
-                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Kedelai", // Ganti dengan URL gambar Anda
-                desc: "Sumber protein nabati dan isoflavon untuk kesehatan wanita",
+                img: "https://i.postimg.cc/py9NFgjm/IMG20251229145242.jpg",
+                desc: "Sumber protein nabati dan isoflavon untuk kesehatan wanita. Cocok untuk tumisan.",
                 stock: 40
             },
             {
                 id: 4,
-                name: "Kecambah Brokoli",
+                name: "Kecambah Brokoli Super",
                 price: 30000,
-                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Brokoli", // Ganti dengan URL gambar Anda
-                desc: "Kandungan sulforaphane tinggi untuk detoksifikasi tubuh",
+                img: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                desc: "Kandungan sulforaphane tinggi untuk detoksifikasi tubuh. Anti kanker alami.",
                 stock: 25
             },
             {
                 id: 5,
-                name: "Kecambah Lentil",
+                name: "Kecambah Lentil Sehat",
                 price: 22000,
-                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Lentil", // Ganti dengan URL gambar Anda
-                desc: "Kaya zat besi, serat, dan vitamin B kompleks",
+                img: "https://i.postimg.cc/py9NFgjm/IMG20251229145242.jpg",
+                desc: "Kaya zat besi, serat, dan vitamin B kompleks. Baik untuk penderita anemia.",
                 stock: 30
             },
             {
                 id: 6,
-                name: "Kecambah Mix Premium",
+                name: "Paket Kecambah Mix",
                 price: 35000,
-                img: "https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Kecambah+Mix+Premium", // Ganti dengan URL gambar Anda
-                desc: "Campuran 4 jenis kecambah organik premium dalam satu paket",
+                img: "https://i.postimg.cc/py9NFgjm/IMG20251229145242.jpg",
+                desc: "Campuran 4 jenis kecambah organik premium dalam satu paket. Praktis dan sehat.",
                 stock: 20
             }
         ];
@@ -304,7 +285,8 @@
             productsContainer.innerHTML = products.map(p => `
                 <div class="product-card" style="animation: fadeIn 0.5s ease;">
                     <div class="product-img">
-                        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x400/4CAF50/FFFFFF?text=Gambar+Tidak+Tersedia'">
+                        <img src="${p.img}" alt="${p.name}" loading="lazy" 
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
                     </div>
                     <div class="product-info">
                         <h3 class="product-name">${p.name}</h3>
@@ -333,7 +315,9 @@
             const modalHTML = `
                 <div style="padding: 20px; max-width: 500px;">
                     <div style="display: flex; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap;">
-                        <img src="${product.img}" alt="${product.name}" style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px; margin-right: 20px; margin-bottom: 20px;">
+                        <img src="${product.img}" alt="${product.name}" 
+                             style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px; margin-right: 20px; margin-bottom: 20px;"
+                             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
                         <div style="flex: 1;">
                             <h3 style="color: var(--hijau); margin-bottom: 10px;">${product.name}</h3>
                             <p style="font-size: 1.5rem; font-weight: bold; color: var(--orange); margin-bottom: 10px;">
@@ -430,7 +414,9 @@
             emptyMsg.style.display = 'none';
             cartItems.innerHTML = cart.map((item, i) => `
                 <div class="cart-item" style="animation: fadeIn 0.3s ease;">
-                    <img src="${item.img}" alt="${item.name}" width="70" height="70" style="object-fit: cover; border-radius: 5px;">
+                    <img src="${item.img}" alt="${item.name}" width="70" height="70" 
+                         style="object-fit: cover; border-radius: 5px;"
+                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'">
                     <div style="flex:1; margin-left:15px;">
                         <h4 style="margin-bottom: 5px; color: var(--hijau);">${item.name}</h4>
                         <p style="color: #666; font-size: 0.9rem;">Rp ${item.price.toLocaleString()} x ${item.qty}</p>
@@ -567,12 +553,13 @@ const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
                             `).join('')}
                             <p style="margin-top:15px; font-weight:bold; color:var(--hijau); font-size:1.1rem; text-align: right;">
                                 Total: Rp ${total.toLocaleString()}
-        </p>
+                            </p>
                         </div>
                         <p style="margin-bottom:20px; color:#666; font-size:0.9rem;">
                             <i class="fas fa-info-circle"></i> Pesanan akan dikirimkan setelah konfirmasi pembayaran.
                         </p>
-                        <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap: wrap;">
+                        <div style="display:flex; gap:10px;
+justify-content:flex-end; flex-wrap: wrap;">
                             <button class="btn btn-orange" onclick="this.parentElement.parentElement.parentElement.remove()" style="flex: 1;">
                                 <i class="fas fa-arrow-left"></i> Kembali
                             </button>
