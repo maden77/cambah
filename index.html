@@ -167,16 +167,25 @@
 
     <script>
         // Data produk
+  const products = [
+  {
+    id: 1,
+    name: "Kecambah Kacang Hijau",
+    price: 15000,
+    img: "https://source.unsplash.com/XaDsH-O2QXs/600x400", // bean sprouts
+    desc: "Kaya protein dan vitamin C"
+  },
+  {
+    id: 2,
+    name: "Kecambah Alfalfa",
+    price: 25000, 
+    img: "https://source.unsplash.com/VW5VjskNXZ8/600x400", // alfalfa
+    desc: "Tekstur renyah, banyak mineral"
+  },
+  // ... lainnya
+];
 
-     const UnsplashImage = () => {
-  return (
-    <img 
-      src="https://images.unsplash.com/photo-8yZf5vfoeP8" 
-      alt="Deskripsi gambar"
-      className="w-full h-auto"
-    />
-  );
-};
+     
        // const products = [
             {id:1, name:"Kecambah Kacang Hijau", price:15000, img:"https://unsplash.com/id/foto/8yZf5vfoeP8", desc:"Kaya protein dan vitamin C"},
             {id:2, name:"Kecambah Alfalfa", price:25000, img:"https://images.unsplash.com/photo-1543352633-99d4f9b8d6e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80", desc:"Tekstur renyah, banyak mineral"},
