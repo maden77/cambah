@@ -136,7 +136,7 @@ nav ul li{margin:10px 0}
         <h3>Jam Operasional</h3>
         <p>Senin - Jumat: 08:00 - 17:00</p>
         <p>Sabtu: 08:00 - 15:00</p>
-        <p>Minggu: Libur</p>
+        
       </div>
     </div>
     <div class="copyright">
@@ -165,21 +165,21 @@ const products = [
   {
     id: 1,
     name: "Kecambah Kacang Hijau",
-    price: 15000,
+    price: 12000,
     stock: 50,
     img: "IMG20251229145242.jpg"
   },
   {
     id: 2,
     name: "Kecambah Kacang Hijau",
-    price: 15000,
+    price: 12000,
     stock: 50,
     img: "IMG_20251230_014159.jpg"
   },
   {
     id: 3,
     name: "Kecambah Kacang Hijau",
-    price: 15000,
+    price: 12000,
     stock: 40,
     img: "IMG_20251230_014159.jpg"
   }
@@ -323,7 +323,7 @@ function checkoutToWA() {
   message += "Nama: %0A";
   message += "Alamat: %0A";
   message += "No. HP: %0A%0A";
-  message += "🙏 Terima kasih telah berbelanja di Kecambah Sehat!";
+  message += "Harga diatas /kg.  🙏 Terima kasih telah berbelanja di Kecambah Sehat!";
   
   const phoneNumber = "6285275135061";
   window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
