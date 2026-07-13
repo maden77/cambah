@@ -35,6 +35,7 @@ background-size:cover;background-position:center;color:#fff;padding:80px 0;text-
 .btn:hover{opacity:0.9}
 .btn-orange{background:var(--orange)}
 .btn-whatsapp{background:#25D366}
+.btn-whatsapp:hover{background:#1da851}
 
 /* PRODUCTS */
 .section-title{text-align:center;margin:50px 0 30px}
@@ -72,6 +73,14 @@ background-size:cover;background-position:center;color:#fff;padding:80px 0;text-
 .btn-minus{background:#f44336;color:white}
 .btn-plus{background:#4caf50;color:white}
 .cart-item-qty{font-weight:bold;min-width:25px;text-align:center}
+
+/* FORM PENGIRIMAN */
+.shipping-form{margin:15px 0;padding:15px;background:#f9f9f9;border-radius:8px}
+.shipping-form label{display:block;font-weight:600;margin-bottom:3px;font-size:0.9rem}
+.shipping-form input{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;margin-bottom:12px;font-size:0.95rem}
+.shipping-form input:focus{outline:2px solid var(--hijau);border-color:transparent}
+.shipping-form .required{color:red}
+
 .modal-buttons{display:flex;gap:10px;margin-top:20px}
 .modal-buttons button{flex:1}
 
@@ -162,6 +171,19 @@ nav ul li{margin:10px 0}
 <div class="modal" id="cartModal">
   <div class="modal-content">
     <h3>🛒 Keranjang Belanja</h3>
+    
+    <!-- FORM PENGIRIMAN -->
+    <div class="shipping-form">
+      <label>Nama Lengkap <span class="required">*</span></label>
+      <input type="text" id="customerName" placeholder="Masukkan nama lengkap Anda" required>
+      
+      <label>Alamat Lengkap <span class="required">*</span></label>
+      <input type="text" id="customerAddress" placeholder="Masukkan alamat lengkap Anda" required>
+      
+      <label>Nomor HP/WhatsApp <span class="required">*</span></label>
+      <input type="tel" id="customerPhone" placeholder="Masukkan nomor HP Anda" required>
+    </div>
+    
     <div id="cartItems" style="margin:15px 0;min-height:100px"></div>
     <div id="emptyCartMsg" style="text-align:center;color:#999;display:none">Keranjang masih kosong</div>
     <p><strong>Total: Rp <span id="cartTotal">0</span></strong></p>
@@ -186,7 +208,6 @@ const products = [
 ];
 
 let cart = [];
-// State untuk menyimpan qty sementara per produk
 let tempQty = {};
 
 /* ==================== FUNGSI UTAMA ==================== */
@@ -194,7 +215,6 @@ let tempQty = {};
 // Render semua produk
 function renderProducts() {
   document.getElementById("products-container").innerHTML = products.map(p => {
-    // Inisialisasi tempQty jika belum ada
     if (!tempQty[p.id]) tempQty[p.id] = 1;
     
     return `
@@ -241,11 +261,9 @@ function changeTempQty(id, delta) {
   
   tempQty[id] = newQty;
   
-  // Update tampilan
   const display = document.getElementById(`qtyDisplay_${id}`);
   if (display) display.textContent = newQty;
   
-  // Update harga
   const productCard = display?.closest('.product-card');
   if (productCard) {
     const priceElement = productCard.querySelector('.product-price');
@@ -266,14 +284,13 @@ function getProduct(productId) {
   return products.find(p => p.id === productId);
 }
 
-// Tambah ke keranjang (dengan validasi stok)
+// Tambah ke keranjang
 function addToCart(id) {
   const product = getProduct(id);
   if (!product) return;
   
   const qtyToAdd = tempQty[id] || 1;
   
-  // Cek stok keseluruhan di keranjang + yang akan ditambah
   const existingItem = cart.find(i => i.id === id);
   const currentQty = existingItem ? existingItem.qty : 0;
   
@@ -294,12 +311,10 @@ function addToCart(id) {
     });
   }
   
-  // Reset temp qty ke 1
   tempQty[id] = 1;
   const display = document.getElementById(`qtyDisplay_${id}`);
   if (display) display.textContent = "1";
   
-  // Update harga di card
   const productCard = display?.closest('.product-card');
   if (productCard) {
     const priceElement = productCard.querySelector('.product-price');
@@ -311,7 +326,6 @@ function addToCart(id) {
   updateCart();
   saveCartToLocal();
   
-  // Animasi feedback
   const btn = document.querySelector(`.product-card .btn[onclick="addToCart(${id})"]`);
   if (btn) {
     btn.textContent = "✓ Ditambahkan!";
@@ -404,6 +418,39 @@ function loadCartFromLocal() {
   }
 }
 
+// Validasi form pengiriman
+function validateShippingForm() {
+  const name = document.getElementById("customerName").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  
+  if (!name) {
+    alert("⚠️ Silakan isi Nama Lengkap Anda!");
+    document.getElementById("customerName").focus();
+    return false;
+  }
+  
+  if (!address) {
+    alert("⚠️ Silakan isi Alamat Lengkap Anda!");
+    document.getElementById("customerAddress").focus();
+    return false;
+  }
+  
+  if (!phone) {
+    alert("⚠️ Silakan isi Nomor HP/WhatsApp Anda!");
+    document.getElementById("customerPhone").focus();
+    return false;
+  }
+  
+  if (phone.length < 10) {
+    alert("⚠️ Nomor HP minimal 10 digit!");
+    document.getElementById("customerPhone").focus();
+    return false;
+  }
+  
+  return { name, address, phone };
+}
+
 // Checkout ke WhatsApp
 function checkoutToWA() {
   if (cart.length === 0) {
@@ -411,7 +458,20 @@ function checkoutToWA() {
     return;
   }
   
+  // Validasi form
+  const customerData = validateShippingForm();
+  if (!customerData) return;
+  
   let message = "🌱 *PESANAN KECAMBAH SEHAT* 🌱%0A%0A";
+  
+  // INFORMASI PENGIRIMAN
+  message += "🚚 *Informasi Pengiriman:*%0A";
+  message += `Nama: ${customerData.name}%0A`;
+  message += `Alamat: ${customerData.address}%0A`;
+  message += `No. HP: ${customerData.phone}%0A`;
+  message += "%0A";
+  
+  // DETAIL PESANAN
   message += "📋 *Detail Pesanan:*%0A";
   
   let total = 0;
@@ -423,10 +483,6 @@ function checkoutToWA() {
   });
   
   message += `%0A💰 *TOTAL: Rp ${total.toLocaleString("id-ID")}*%0A%0A`;
-  message += "🚚 *Informasi Pengiriman:*%0A";
-  message += "Nama: %0A";
-  message += "Alamat: %0A";
-  message += "No. HP: %0A%0A";
   message += "🙏 Terima kasih telah berbelanja di Kecambah Sehat!";
   
   const phoneNumber = "6285275135061";
@@ -435,7 +491,6 @@ function checkoutToWA() {
 
 /* ==================== INITIALISASI ==================== */
 
-// Panggil semua fungsi saat halaman dimuat
 renderProducts();
 loadCartFromLocal();
 
@@ -477,6 +532,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       if (document.getElementById("mainNav").classList.contains("show")) {
         document.getElementById("mainNav").classList.remove("show");
       }
+    }
+  });
+});
+
+// Enter key untuk submit form
+document.querySelectorAll('.shipping-form input').forEach(input => {
+  input.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      checkoutToWA();
     }
   });
 });
